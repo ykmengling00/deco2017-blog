@@ -1,12 +1,12 @@
 ---
-title: Post Title
+title: Why a Used Car Community? Re-thinking What This Platform Is For
 date: 2026-04-17
 author: Milo Yang
-summary: The fist blog post where I go over the brief and consider a few potential concepts.
+summary: This post explores why a community-driven approach to used car trading makes sense — and why focusing on trust and shared knowledge before the transaction might be what sets this platform apart from existing marketplaces.
 tags:
-  - ideation phase
-  - interactive application
-  - endless possibilities
+  - community-first
+  - trust-signals
+  - marketplace-differentiation
 ---
 When I first read the BlaBla Corp brief, the phrase that stood out was "user-centred approach and bespoke features." These aren't just buzzwords — they're a direct challenge. If someone could already buy and sell used cars on Facebook Marketplace, Gumtree, or dedicated sites like CarsGuide, what would make a BlaBla community hub worth building?
 
