@@ -1,6 +1,6 @@
 ---
 title: Getting Concrete — How the Data and User Flow Are Shaping Up
-date: 2026-02-14
+date: 2026-04-24
 author: Milo Yang
 summary: Moving from ideas to actual structure, this post documents the decisions made about what data the app needs to track, how listings relate to users, and the concrete flow a buyer goes through from searching to making an inquiry.
 tags:
