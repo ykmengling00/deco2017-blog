@@ -1,7 +1,7 @@
 ---
 title: Post Title
 date: 2026-02-14
-author: Your Name
+author: Milo Yang
 summary: Short description
 tags:
   - tag1
