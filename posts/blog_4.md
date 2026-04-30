@@ -8,7 +8,7 @@ tags:
   - user-experience
   - accessibility
 ---
-When I first sketched out my wireframe for EazyCars, I did not think too far past where things would go on the page. I just drew boxes and lines and assumed I would figure the rest out later. That was a mistake. The wireframe stage is actually where the most important decisions about user experience get made — before any code exists, before any design polish gets applied. I have learned this the hard way.
+When I first sketched out my wireframe for EazyCars, I did not think too far past where things would go on the page. I just drew boxes and lines and assumed I would figure the rest out later. That was a mistake. The wireframe stage is actually where the most important decisions about user experience get made — before any code exists, before any design polish gets applied.
 
 The biggest question I kept asking myself was: how long would it take a brand new user to understand what this page does? If someone has never seen EazyCars before, can they land on the homepage and immediately know what to do? If the answer is no, something is wrong with the layout.
 
