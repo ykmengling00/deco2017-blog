@@ -2,7 +2,7 @@
 title: My Wireframe Ideas for EazyCars
 date: 2026-04-28
 author: Milo Yang
-summary: I started building wireframes for EazyCars and realised that thinking about layout is also thinking about how easy it will be for someone to use. I focused on three things, keeping the learning cost low, making navigation obvious, and planning for accessibility from the beginning. This post is about what I was thinking and why I made the choices I did.
+summary: "I started building wireframes for EazyCars and realised that thinking about layout is also thinking about how easy it will be for someone to use. I focused on three things: keeping the learning cost low, making navigation obvious, and planning for accessibility from the beginning. This post is about what I was thinking and why I made the choices I did."
 tags:
   - wireframe
   - user-experience
