@@ -1,6 +1,6 @@
 ---
 title: How I Am Using DDD to Plan My EazyCars Features
-date: 2026-05-3
+date: 2026-05-03
 author: Milo Yang
 summary: After finishing my wireframes in Blog 04, I realised that just showing what goes on the page is not enough, I also need to explain what data each element uses or produces. That is why I started learning DDD, a simple table format that describes data attributes, their meanings, and example values. This post is about how I am applying this method to EazyCars, especially to the car search and listing pages.
 tags:
