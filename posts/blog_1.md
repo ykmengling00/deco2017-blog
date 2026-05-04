@@ -2,7 +2,7 @@
 title: Why a Used Car Community? Re-thinking What This Platform Is For
 date: 2026-04-17
 author: Milo Yang
-summary: When I first read the BlaBla Corp brief, I asked a core question: what would make a community car hub worth building when platforms like Gumtree already exist? This post documents how I identified the community-first approach as the differentiator, defined the three core functional requirements, and acknowledged the challenge of building trust signals without real transaction data.
+summary: "When I first read the BlaBla Corp brief, I asked a core question: what would make a community car hub worth building when platforms like Gumtree already exist? This post documents how I identified the community-first approach as the differentiator, defined the three core functional requirements, and acknowledged the challenge of building trust signals without real transaction data."
 tags:
   - community-first
   - trust-signals

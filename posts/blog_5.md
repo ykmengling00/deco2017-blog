@@ -2,7 +2,7 @@
 title: How I Am Using DDD to Plan My EazyCars Features
 date: 2026-05-03
 author: Milo Yang
-summary: After finishing my wireframes, I realised I had not answered a basic question: how does the back-end know what data to send to each part of the page? This post documents how I applied DDD to document the data requirements, discovered that inquiry data lives on the relationship between buyer and listing rather than on either entity, sketched the ERD showing how my three tables relate, and explains why MojoJS, SQLite, and HTMX were the right choices for this prototype.
+summary: "After finishing my wireframes, I realised I had not answered a basic question: how does the back-end know what data to send to each part of the page? This post documents how I applied DDD to document the data requirements, discovered that inquiry data lives on the relationship between buyer and listing rather than on either entity, sketched the ERD showing how my three tables relate, and explains why MojoJS, SQLite, and HTMX were the right choices for this prototype."
 tags:
   - Data design
   - DDD
