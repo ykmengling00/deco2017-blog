@@ -2,24 +2,53 @@
 title: Getting Concrete — How the Data and User Flow Are Shaping Up
 date: 2026-04-24
 author: Milo Yang
-summary: Moving from ideas to actual structure, this post documents the decisions made about what data the app needs to track, how listings relate to users, and the concrete flow a buyer goes through from searching to making an inquiry.
+summary: After staying high-level for a few weeks, I drew out the actual user flow and worked through the data structure. This post documents the four-step flow I designed, the three database tables I planned (listings, inquiries, seller_profiles), and the key trade-off I made on image storage. I also show how I applied DDD-style table format to document each entity's attributes.
 tags:
   - database-design
   - user-flow
   - concrete-decisions
 ---
-After a few weeks of staying high-level, I finally sat down and tried to draw out what the app actually looks like when you use it. That exercise was more useful than I expected — it surfaced assumptions I hadn't questioned and forced me to make calls I'd been avoiding.
+After staying high-level for a few weeks, I sat down and tried to draw out what the app actually looks like when you use it. That exercise surfaced assumptions I had not questioned and forced me to make calls I had been avoiding.
 
-The flow I landed on has four main steps. First, a buyer lands on the browse page and can search or filter listings. Second, they click into a listing and see the full details plus the seller's trust profile. Third, they fill out an inquiry form rather than seeing a phone number immediately. Fourth, the seller receives the inquiry through the platform and responds — keeping both parties' contact details private until they're ready to share.
+The user flow has four steps. A buyer lands on the browse page and can search or filter listings. They click into a listing and see the full details plus the seller's trust profile. They fill out an inquiry form rather than seeing a phone number immediately. The seller receives the inquiry through the platform and responds. This keeps both parties' contact details private until they are ready to share.
 
-That inquiry step is the part I feel most uncertain about. It's clearly the right call for privacy, but I'm not sure yet whether it should feel more like a message thread or a structured form submission. The difference matters for how I build the back-end. I'm leaning toward a message-thread style because it feels more natural in a community context, but that means I'm essentially building a messaging feature, which is more complex than I initially planned. I might scale it back to a simple one-message inquiry to keep the prototype stable.
+The inquiry step is the part I feel most uncertain about. I am leaning toward a message-thread style because it feels more natural in a community context, but that means building a messaging feature, which is more complex than I initially planned. I might scale it back to a simple one-message inquiry to keep the prototype stable.
 
-On the data side, I spent a while working through what needs to be stored. The obvious table is listings — things like make, model, year, mileage, condition, price, description, and listing date. Then there's the user side, but the brief already says BlaBla handles authentication, so I'm not storing login credentials. What I do need is a way to associate listings with a user ID and track inquiry records. I'm thinking three main tables: one for listings, one for inquiries, and one for seller profiles — where the profile is a thin layer on top of the BlaBla user ID that adds community-specific data like how many successful sales they've completed and their account age.
+On the data side, I worked through what needs to be stored. The obvious table is listings — things like make, model, year, mileage, condition, price, description, and listing date. Then there is the user side, but the brief already says BlaBla handles authentication, so I am not storing login credentials. What I do need is a way to associate listings with a user ID and track inquiry records. I am planning three main tables:
 
-One concrete decision I made: I'm not storing images in the database. SQLite doesn't handle large blobs well, and the prototype environment doesn't have robust file storage. Instead, I'll store image URLs and the listings will pull images from publicly accessible URLs. This means listings won't always have real photos, but it's the only realistic approach for this scope. I might add a placeholder image fallback for listings that don't have one yet.
+Table: listings
 
-I also had to revisit my trust layer idea. I initially imagined a detailed reputation system, but in a prototype with no real transactions, there's nothing to base that on. I've scaled it back to something simpler: showing account age and a count of active listings. It's not a real trust signal yet, but it's something I can build the UI around and expand later.
+| attribute | description | example value |
+| listing id | unique identifier for this listing | 48392 |
+| seller id | BlaBla user ID of the seller | 10291 |
+| make | brand of the vehicle | Toyota |
+| model | model name of the vehicle | Camry |
+| year | year of manufacture | 2019 |
+| mileage | odometer reading in kilometres | 45000 |
+| condition | new, excellent, good, fair, poor | good |
+| price | advertised price in AUD | $15,000 |
+| description | seller-written description | One owner, serviced regularly... |
+| listing date | when the listing was posted | 2026-04-20 |
+| image url | link to the cover photo | /assets/img/camry-2019-hero.webp |
 
-The accessibility question I raised in an earlier post is still on my mind. I've started sketching the page structure with semantic HTML in mind — proper headings, labels on form fields, alt text on images. I'm testing early with keyboard navigation to catch issues before they become entrenched in the layout.
+Table: inquiries
 
-What's left to figure out: the inquiry response flow (message vs. form), pagination for the browse page, and whether I need a "saved listings" feature to demonstrate a user's personal space on the platform.
+| attribute | description | example value |
+| inquiry id | unique identifier for this inquiry | 78231 |
+| listing id | which listing this inquiry is about | 48392 |
+| buyer id | BlaBla user ID of the buyer | 20943 |
+| message | the buyer's initial inquiry text | Is this still available... |
+| sent at | timestamp when inquiry was sent | 2026-04-21 14:30 |
+
+Table: seller_profiles
+
+| attribute | description | example value |
+| seller id | BlaBla user ID, matches listings.seller_id | 10291 |
+| account age | months since first listing was posted | 6 |
+| active listings | how many listings this seller currently has | 2 |
+
+One concrete decision I made: I am not storing images in the database. SQLite does not handle large blobs well, and the prototype environment does not have robust file storage. Instead, I will store image URLs and the listings will pull images from publicly accessible URLs. This means listings will not always have real photos, but it is the only realistic approach for this scope. Trade-off: I chose URL-based images because building a file upload system in SQLite would add complexity that does not serve the prototype's core purpose.
+
+I also had to revisit my trust layer idea. I initially imagined a detailed reputation system, but without real transactions, there is nothing to base that on. I scaled it back to account age and active listing count. These are not strong trust signals, but they are better than nothing and they come from data I already have.
+
+What is left to figure out: whether the inquiry response should be a message thread or a simple notification, pagination for the browse page, and whether I need a saved listings feature to demonstrate a user's personal space on the platform.
