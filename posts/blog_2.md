@@ -2,11 +2,11 @@
 title: Cutting Down to What Matters — Scoping the Core Features
 date: 2026-04-24
 author: Milo Yang
-summary: After identifying what the platform needs to do at a high level, I had to make hard decisions about what actually goes into the prototype. This post documents how I prioritised the core features, what trade-offs I made, and why I chose to build a skeleton of trust rather than a working reputation system.
+summary: "After identifying what the platform needs to do at a high level, I had to make hard decisions about what actually goes into the prototype. This post documents how I prioritised the core features, what trade-offs I made, and why I chose to build a skeleton of trust rather than a working reputation system, while also considering how EU cookie compliance affects what I can build."
 tags:
   - scope-management
   - core-features
-  - feasibility
+  - eu-cookie-compliance
 ---
 After identifying what the platform needs to do at a high level, I had to make hard decisions about what actually goes into the prototype. That was harder than I expected.
 
@@ -21,6 +21,8 @@ Search and filter is non-negotiable. Nobody wants to scroll through fifty listin
 The trust layer — I really wanted this to be the differentiator. I imagined detailed reputation scores, community warnings, completed sale counts. But I had to be honest with myself: in a prototype with no real transactions, there is nothing to build a reputation system on. I scaled it back to showing account age and active listing count. It is not a real trust signal yet, but it is something I can demonstrate in the UI and expand later. Scope constraint: I chose to build a skeleton of trust rather than a working system, because the latter requires real data I do not have.
 
 For inquiries, a structured form that goes directly to the seller through the platform protects buyer privacy and keeps everything within BlaBla's ecosystem. HTMX should handle the inline interaction without much trouble. I ranked this fourth because it is a secondary flow — most buyers will browse before they inquire, so browsing has to work well first.
+
+I also had to think about EU cookie compliance early. The brief mentions it, and I realised it would affect how I handle any tracking or session data. If I use any third-party scripts or analytics that set cookies, I need a consent banner and a way to opt out. That adds scope. To keep things simple, I am planning to avoid third-party tracking entirely in the prototype and only use session cookies that are strictly necessary for the app to function. This is a deliberate design decision — it keeps the prototype clean and avoids the compliance overhead of a full cookie consent system.
 
 What I am still unsure about: whether to include pricing guides or market trend data. That either needs external data or a fair amount of logic I am not sure I can pull off cleanly in the time available. I am also not sure yet how image uploads will work with SQLite's storage constraints — I might end up using URL-based images to keep it simple.
 

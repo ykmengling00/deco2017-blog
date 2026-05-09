@@ -2,7 +2,7 @@
 title: Finding and Fixing a Template Naming Problem
 date: 2026-05-03
 author: Milo Yang
-summary: My first attempt at rendering a listings page gave me a "Nothing could be rendered" error. This post documents how I traced the problem to a naming mismatch between my controller actions and template filenames — MojoJS expects templates to match the action name, not follow the "index as default" convention I assumed from other frameworks.
+summary: "My first attempt at rendering a listings page gave me a 'Nothing could be rendered' error. This post documents how I traced the problem to a naming mismatch between my controller actions and template filenames, and what this taught me about reading framework conventions carefully before building. It also shows how this debugging process led me to reconsider my approach to structured testing."
 tags:
   - debugging
   - template
@@ -23,3 +23,5 @@ After restarting the server, the page loaded correctly. I tested the form submis
 The lesson I took from this is simple: when using a framework, the file naming conventions are not just suggestions. They are the rules that the framework uses to connect pieces together. I should have checked the MojoJS documentation for how templates are found before I started naming them. Next time, I will read the framework's conventions first, not assume, and test each piece before moving on to the next one.
 
 What this also reminded me: the DDD I wrote earlier in the process paid off here. When I was sketching out what data the listing page needed, I had already defined the listing id, make, model, year, price, mileage, and image url as separate fields. Because of that early thinking, I knew exactly what to query from the database when the page finally rendered. The data model was clear; the only problem was the file name.
+
+This debugging experience also made me think about testing differently. I had been focused on building features and assuming things would work. But the reality is that mistakes happen, and the sooner I catch them, the less they cost to fix. I decided to write out a simple test plan for the core routes: test that /listings loads, that /listings/:id loads the correct listing, that the inquiry form submits without errors, and that invalid IDs return a proper error page rather than a blank screen or a crash. I also noted that I should verify these same routes work with keyboard navigation, since accessibility was planned from the wireframe stage. I will run through each route using only the Tab, Enter, and Escape keys to catch any keyboard trap issues early.
