@@ -10,13 +10,14 @@ tags:
 ---
 Most pages held up well. Buy, Sell, and Garage all hit 100 on Performance. Homepage came in at 76. That was the thing I had to think about.
 
-Figure 1: Lighthouse results for /
+![Figure 1: Lighthouse results for /](assets/images/a3/lighthouse-homepage.png)
 
 The Homepage score was dragged down by a Largest Contentful Paint of 5.6 seconds. The page was loading a full-bleed image without any optimisation strategy. First Contentful Paint was quick at 0.3 seconds, which meant something was painting immediately, but the largest element on the page took much longer to resolve. That gap between FCP and LCP pointed straight at the image loading approach. A good FCP score is 1.8 seconds or less (Google, 2024), and the site was well within that. The LCP issue on Homepage was a separate problem that needed its own approach.
 
-Figure 2: Lighthouse results for /listings
-Figure 3: Lighthouse results for /listings/new
-Figure 4: Lighthouse results for /listings/:id
+![Figure 2: Lighthouse results for /listings](assets/images/a3/lighthouse-buy.png)
+![Figure 3: Lighthouse results for /listings/new](assets/images/a3/lighthouse-sell.png)
+![Figure 4: Lighthouse results for /listings/:id](assets/images/a3/lighthouse-car-details.png)
+![Figure 5: Lighthouse results for /garage](assets/images/a3/lighthouse-garage.png)
 
 I went through the Lighthouse diagnostics to understand what was taking so long. Unused JavaScript was sitting at around 490 KiB across pages. The image payload on Homepage alone had estimated savings of over 6,000 KiB. Rather than scramble to optimise images the night before submission, I documented the issue clearly and noted what the fix would involve: lazy loading, explicit width and height attributes on image elements, and some form of image compression or responsive images. Cumulative Layout Shift on the detail page at 0.058 was also traced to images without explicit dimensions, which would be a straightforward fix in any future iteration.
 
@@ -26,11 +27,11 @@ The lesson here was about not assuming. I thought the site would perform consist
 
 The first axe DevTools run returned 31 color contrast violations. Every single one was on the dark navy navigation bar. I had picked that color because it looked right to me. What looks fine to a designer is not always what passes the contrast check (Costa, 2021). Rather than change the whole palette at once, I went through each failed element one at a time. Some text got lighter. Some elements got bolder. A few decorative things I thought were subtle were creating failures for screen readers too. After going through every template file and fixing each combination, every page came back with zero violations.
 
-Figure 6: axe DevTools results for Homepage
-Figure 7: axe DevTools results for /listings
-Figure 8: axe DevTools results for /listings/new
-Figure 9: axe DevTools results for /listings/:id
-Figure 10: axe DevTools results for /garage
+![Figure 6: axe DevTools results for Homepage](assets/images/a3/axe-devtools-homepage.png)
+![Figure 7: axe DevTools results for /listings](assets/images/a3/axe-devtools-buy.png)
+![Figure 8: axe DevTools results for /listings/new](assets/images/a3/axe-devtools-sell.png)
+![Figure 9: axe DevTools results for /listings/:id](assets/images/a3/axe-devtools-car-details.png)
+![Figure 10: axe DevTools results for /garage](assets/images/a3/axe-devtools-garage.png)
 
 EU cookie compliance was new territory for me. The consent banner needed to appear before any cookies were set, give users a real choice between Accept and Reject, and remember that choice on their next visit. I read through the Directive 2002/58/EC to understand what valid consent actually means under the law (European Parliament and Council, 2002). The implementation I settled on checks for a consent cookie at the dispatch hook level, serves the banner as a clean template fragment via HTMX, and sets a persistent cookie once a choice is made. Using HTMX meant the banner disappears smoothly once the user clicks either button. No full page reload. No jarring transition. Both buttons are equally prominent, which is what the directive expects and what good usability practice supports (Rigou and Georgiadou, 2025).
 
