@@ -8,6 +8,11 @@ tags:
   - Reflection
   - DECO2017A3
 ---
+
+<style>
+img { max-width: 700px; height: auto; }
+</style>
+
 Most pages held up well. Buy, Sell, and Garage all hit 100 on Performance. Homepage came in at 76. That was the thing I had to think about.
 
 ![Figure 1: Lighthouse results for /](assets/images/a3/lighthouse-homepage.png)
